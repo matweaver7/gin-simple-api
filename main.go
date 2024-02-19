@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	_, err := config.NewConfig()
+	_, err := config.NewConfig(".env")
 	if err != nil {
 		log.Err(err).Msg("Failed to load .ENV Config")
 	}
