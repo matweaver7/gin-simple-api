@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -33,18 +34,23 @@ func loadConfig() *Config {
 	}
 }
 
-func NewConfig() (*Config, error) {
+func NewConfig(path string) (*Config, error) {
 	cfg := loadConfig()
+
+	if path == "" {
+		path = ".env"
+	}
 
 	if cfg.Env == "" || cfg.Env == "LOCAL" {
 		cfg.Env = "LOCAL"
 
-		err := godotenv.Load(".env")
+		err := godotenv.Load(path)
 		if err != nil {
 			return nil, err
 		}
 		cfg = loadConfig()
 
 	}
+	fmt.Println(cfg)
 	return cfg, nil
 }
